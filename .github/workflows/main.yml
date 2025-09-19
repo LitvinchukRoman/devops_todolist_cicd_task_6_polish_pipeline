@@ -18,7 +18,7 @@ jobs:
     name: Python CI
     strategy:
       matrix:
-        python-version: [3.9]
+        python-version: [3.8, 3.9, 3.11]
         os-type: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os-type }}
     defaults:
@@ -59,7 +59,7 @@ jobs:
       - name: Upload python artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts
+          name: python-artifacts-${{ matrix.os-type }}-py${{ matrix.python-version }}
           path: .
 
       - name: Upload helm artifacts
