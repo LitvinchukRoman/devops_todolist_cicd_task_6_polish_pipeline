@@ -8,6 +8,23 @@ on:
   pull_request:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      message:
+        description: 'Deployment message'
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   PythonVersion: 3.8
